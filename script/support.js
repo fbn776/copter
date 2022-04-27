@@ -34,18 +34,6 @@ CanvasRenderingContext2D.prototype.box = function(x, y, w, h, opt = {}) {
 	ctx.closePath();
 };
 
-CanvasRenderingContext2D.prototype.circle = function(x, y, r, opt = {}) {
-	let ctx = this;
-	ctx.beginPath();
-	ctx.strokeStyle = (opt.color || opt.strokeStyle || opt.borderColor || "black");
-	ctx.fillStyle = (opt.fill || opt.fillColor || opt.bg || opt.bgColor || "black");
-	ctx.lineWidth = (opt.width || opt.lineWidth || opt.borderWidth || 1);
-	ctx.arc(x, y, r, 0, twoPi);
-	ctx.fill();
-	ctx.stroke();
-	ctx.closePath();
-};
-
 
 function Log(elm){
 	this.elm = elm;

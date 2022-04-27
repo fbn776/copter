@@ -138,7 +138,7 @@ function initGame(mode) {
 
 	resume_btn.onclick = function() {
 		sound.play('engine');
-		
+
 		paused = false;
 		pauseMenu.style.display = "none";
 		pauseMenu.style.opacity = 0;
@@ -165,10 +165,10 @@ function initGame(mode) {
 }
 
 function gameFrame(mode, props) {
-	
-	sound.volume(max_vol);
-	sound.play('engine');
-
+	if (soundToggle.checked) {
+		sound.volume(max_vol);
+		sound.play('engine');
+	}
 	const barVel = new Vector(mode.barVelocity, 0);
 	noise.seed(Math.random());
 
@@ -205,7 +205,7 @@ function gameFrame(mode, props) {
 				bar_gap = map_range(Math.abs(noise.simplex2(1, bar_count / mode.gap_noise_max)), 0, 1, mode.bar_gap_min, mode.bar_gap_max);
 				const bar_width = Math.floor(random(8, 150));
 				const x_pos = lastBar.pos.x + (lastBar.width / 2) + (bar_width / 2);
-				
+
 				let obst = null;
 				if (Math.random() < mode.obstacle_chance && bar_width > 45) {
 					const obst_w = random(15, 40, true);
@@ -217,7 +217,7 @@ function gameFrame(mode, props) {
 			bars.update(dt, barVel);
 			player.update(dt);
 			player.show();
-			
+
 			if (player.score == 0 && (!player.hasCollision) && (player.pos.y - player.halfSize < 0 || player.pos.y + player.halfSize > ch)) {
 				//Collision with the floor or roof;
 				player.onCollision();

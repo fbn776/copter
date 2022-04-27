@@ -23,8 +23,9 @@ class Obstacle {
 		this.pos = new Vector(x, y);
 		this.w = w;
 		this.h = h;
-		this.hw = this.w / 2;
-		this.hh = this.h / 2;
+		this.hw = w / 2;
+		this.hh = h / 2;
+		this.wOff = this.w/3.5;
 		this.dist = dist;
 	}
 	update(dt, vel) {
@@ -32,14 +33,14 @@ class Obstacle {
 	}
 	show() {
 		ctx.beginPath();
-		ctx.moveTo(this.pos.x - this.w / 3.5, this.pos.y);
-		ctx.lineTo(this.pos.x - this.w / 3.5, this.dist);
-		ctx.moveTo(this.pos.x + this.w / 3.5, this.pos.y);
-		ctx.lineTo(this.pos.x + this.w / 3.5, this.dist);
+		ctx.moveTo(this.pos.x - this.wOff, this.pos.y);
+		ctx.lineTo(this.pos.x - this.wOff, this.dist);
+		ctx.moveTo(this.pos.x + this.wOff, this.pos.y);
+		ctx.lineTo(this.pos.x + this.wOff, this.dist);
 		ctx.setLineDash([5, 1]);
 		ctx.stroke();
 		ctx.setLineDash([0, 0])
-		ctx.fillRect(this.pos.x - (this.w / 2), this.pos.y - (this.h / 2), this.w, this.h);
+		ctx.fillRect(this.pos.x - this.hw, this.pos.y - this.hh, this.w, this.h);
 		ctx.closePath();
 	}
 }
@@ -98,17 +99,21 @@ class Bars {
 				{ //Positions adjusted for the sprite; 8,4
 					if (curr.obst) {
 						const obst = curr.obst;
-						if (hasCollision({
+						const obst_box = {
 								x: obst.pos.x - obst.hw,
 								y: obst.pos.y - obst.hh,
 								w: obst.w,
 								h: obst.h
-							}, {
+							},
+							ply_box = {
 								x: player.pos.x - player.halfSize,
-								y: player.pos.y - player.halfSize,
+								y: player.pos.y - player.halfSize + 8,
 								w: player.size,
-								h: player.size
-							})) {
+								h: player.size-12,
+							};
+						
+
+						if (hasCollision(ply_box,obst_box)) {
 							player.collidedWith = i;
 							player.onCollision()
 						};
@@ -240,7 +245,8 @@ class Player {
 	}
 	moveUp() {
 		if (!this.hasCollision) {
-			if (sound.volume() == default_vol) {
+
+			if (soundToggle.checked && (sound.volume() == default_vol)) {
 				sound.fade(default_vol, max_vol, 800);
 			}
 			this.moveUpCounter++;
@@ -254,7 +260,7 @@ class Player {
 	update(dt) {
 		this.dt = dt;
 
-		if (!this.hasCollision && sound.volume() == max_vol && (Date.now() - this.lastMoveUp > 800)) {
+		if (soundToggle.checked && ((!this.hasCollision) && sound.volume() == max_vol && (Date.now() - this.lastMoveUp > 800))) {
 			sound.fade(max_vol, default_vol, 500);
 		}
 
@@ -292,8 +298,9 @@ class Player {
 		ctx.drawImage(Player_img, 64 * (this.img_index - 1), 0, 64, 64,
 			-this.halfSize, -this.halfSize, this.size, this.size)
 
-		//ctx.rect(-this.halfSize, -this.halfSize, this.size, this.size);
-		//ctx.stroke();
+		/*Bounding box;
+		ctx.rect(-this.halfSize, -this.halfSize, this.size, this.size);
+		ctx.stroke();*/
 		ctx.restore();
 
 		if (Date.now() - this.lastChange > this.frameTime) {
@@ -313,11 +320,10 @@ class Player {
 		}
 		this.smokes.addN(10);
 		this.props.barVelocity.x = 0;
-		if (!this.hasCollision) {
+		if (!this.hasCollision && soundToggle.checked) {
 			sound.stop();
 			sound.volume(max_vol)
 			sound.play('explode');
-
 			sound.fade(max_vol, 0, 1000);
 		}
 		this.hasCollision = true;

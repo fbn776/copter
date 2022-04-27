@@ -16,7 +16,8 @@
 			<a onclick="initGame(Game_modes.easy)">Easy - <label id="easyHS">0</label> </a>
 			<a onclick="initGame(Game_modes.medium)">Medium - <label id="mediumHS">0</label> </a>
 			<a onclick="initGame(Game_modes.hard)">Hard - <label id="hardHS">0</label> </a>
-			<p>Best score - <label id="bestHS">0</label></p>
+			<p>Best score - <label id="bestHS">0</label></p><br>
+			<p class="flex">Sound - <input id="soundToggle" checked="true" type="checkbox"></p>
 		</div>
 		<div class="social">
 			<a href="https://www.twitter.com/fbn776"><img src="ic/twitter.png"></a>
@@ -54,7 +55,12 @@
 	</script>
 	<script src="script/classes.js"></script>
 	<script src="script/main.js"></script>
-	<script></script>
+	<script>
+		soundToggle.checked = localStorage.getItem("enable-copter-sound") == "false"?false: true;
+		soundToggle.oninput = function (){
+			localStorage.setItem("enable-copter-sound",this.checked);
+		}
+	</script>
 </body>
 
 </html>
