@@ -168,6 +168,7 @@ function initGame(mode, reqDelay = true) {
 	}
 	home_btn.onclick = function() {
 		sound.stop();
+		score_elm.innerHTML = 0;
 		let cont = true;
 		if (paused) {
 			cont = confirm("Do you want to quit? Your scores will be lost, if you quit.")
@@ -186,6 +187,7 @@ function initGame(mode, reqDelay = true) {
 	};
 
 	restart_btn.onclick = function() {
+		score_elm.innerHTML = 0;
 		setTimeout(() => {
 			pauseMenu.style.display = "none";
 			pauseMenu.style.opacity = 0;

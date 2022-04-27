@@ -320,9 +320,9 @@ class Player {
 		this.props.barVelocity.x = 0;
 		if (!this.hasCollision && soundToggle.checked) {
 			sound.stop();
-			sound.volume(max_vol)
+			sound.volume(1)
 			sound.play('explode');
-			sound.fade(max_vol, 0, 1000);
+			sound.fade(1, 0, 1000);
 		}
 		this.hasCollision = true;
 	}
