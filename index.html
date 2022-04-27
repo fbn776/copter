@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta name="viewport" content="width= device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="lib/style.css">
+	<link rel="stylesheet" href="css/style.css">
+	<title>Cave Copter</title>
+</head>
+
+<body>
+	<lg></lg>
+	<div class="fixed-full home-window">
+		<h1>Cave Copter</h1>
+		<div class="menu">
+			<a onclick="initGame(Game_modes.easy)">Easy - <label id="easyHS">0</label> </a>
+			<a onclick="initGame(Game_modes.medium)">Medium - <label id="mediumHS">0</label> </a>
+			<a onclick="initGame(Game_modes.hard)">Hard - <label id="hardHS">0</label> </a>
+			<p>Best score - <label id="bestHS">0</label></p>
+		</div>
+		<div class="social">
+			<a href="https://www.twitter.com/fbn776"><img src="ic/twitter.png"></a>
+			<a href="https://fbn776.github.io/"><img src="ic/home.png"></a>
+			<a href="https://github.com/fbn776"><img src="ic/github.png"></a>
+		</div>
+		<div class="watermark">fbn776</div>
+	</div>
+
+	<div class="fixed-full game-window">
+		<div class="message fixed-full flex">
+			<p id="msgElm">Hi!</p>
+		</div>
+		<img src="ic/pause.png" id="pause_btn" onclick="openPauseMenu()">
+		<div class="flex score">0</div>
+		<canvas id="main" class="fixed-full"></canvas>
+		<div class="pause-menu">
+			<div class="main">
+				<div class="HS-text flex">Score - <label id="pauseHS"> 0</label></div>
+				<div class="ic-cont flex">
+					<img src="ic/home.png" id="home_btn">
+					<img src="ic/resume.png" id="resume_btn">
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<script src="lib/canvas.js"></script>
+	<script src="lib/vector.js"></script>
+	<script src="script/support.js"></script>
+	<script src="script/perlin.js"></script>
+	<script>
+		const lg = new Log(s("lg"))
+	</script>
+	<script src="script/classes.js"></script>
+	<script src="script/main.js"></script>
+	<script></script>
+</body>
+
+</html>

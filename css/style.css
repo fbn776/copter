@@ -1,0 +1,202 @@
+:root {
+	--shadow:0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+* {
+	box-sizing: border-box;
+	font-family: monospace;
+}
+
+*:focus {
+	outline: none;
+}
+
+body {
+	margin: 0px;
+	height: 100vh;
+	background: #111111;
+	color: rgba(255,255,255,0.8);
+}
+
+lg {
+	display: block;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 9999;
+	background: rgba(255, 255, 255, 0.7);
+	color: black;
+}
+
+.fixed-full {
+	position: fixed;
+	top: 0;
+	left: 0;
+}
+
+.flex {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#main {
+	background: white;
+}
+.game-window {
+	width: 100%;
+	height: 100%;
+	display: none;
+	opacity: 0;
+	transition: opacity 0.2s;
+}
+.game-window .message {
+	width:100%;
+	height: 100%;
+	bottom: 0px;
+	background: rgba(0,0,0,0.6);
+	font-weight: 800;
+	color: white;
+	z-index: 103;
+}
+.game-window .message #msgElm {
+	font-size: 17px;
+	text-align: center;
+	transition: transform 0.2s , opacity 0.2s;
+}
+.game-window canvas {
+	bottom: 0;
+	right: 0;
+	z-index: 99;
+}
+.game-window #pause_btn {
+	position: fixed;
+	top: 10px;
+	width: 30px;
+	left: calc(50% - 15px);
+	z-index: 101;
+	background: white;
+	border-radius: 6px;
+}
+.game-window .score {
+	position: fixed;
+	top: 0;
+	right: 0;
+	width: 60px;
+	height: 60px;
+	background: rgba(255, 255, 255, 0.8);
+	border-radius: 0px 0px 0px 10px;
+	font-weight: 800;
+	font-size: 18px;
+	z-index: 100;
+	color: black;
+	box-shadow: var(--shadow);
+}
+
+.game-window .pause-menu {
+	position: fixed;;
+	top: 0;
+	left:0;
+	bottom: 0;
+	right: 0;
+	background: rgba(0,0,0,0.6);
+	z-index:102;
+	display: none;
+	opacity: 0;
+	transition: opacity 0.2s;
+	color: black;
+}
+.game-window .pause-menu .main {
+	position: fixed;
+	width: 80%;
+	height: 150px;
+	background: white;
+	top: calc(50% - 150px/2);
+	left: calc(50% - 80%/2);
+	border-radius: 8px;
+	box-shadow: var(--shadow);
+	color: black;
+}
+.game-window .pause-menu .main .HS-text {
+	width: 100%;
+	height: 50%;
+	font-weight: 800;
+	font-size: 22px;
+	color: black;
+}
+.game-window .pause-menu .main .HS-text label {
+	margin-left: 8px;
+}
+.game-window .pause-menu .main .ic-cont {
+	width: 100%;
+	height: 50%;
+}
+.game-window .pause-menu .main .ic-cont img {
+	height: 40%;
+	margin: 0px 30px;
+}
+.home-window {
+	width: 100%;
+	height: 100%;
+	transition: opacity 0.2s;
+	/*display: none;*/
+}
+
+.home-window h1 {
+	margin: 100px 0px;
+	margin-bottom: 130px;
+	width: 100%;
+	text-align: center;
+	font-size: 32px;
+}
+
+.home-window .menu {
+	width: 100%;
+	text-align: center;
+}
+
+
+.home-window .menu a {
+	display: block;
+	cursor: none;
+	text-decoration: none;
+	font-weight: 800;
+	font-size: 16px;
+	margin: 60px 0px;
+	transition: transform 0.2s;
+}
+
+.home-window .menu a:hover {
+	transform: scale(1.5);
+}
+
+.home-window .menu p {
+	font-weight: 700;
+	opacity: 0.6
+}
+
+.home-window .social {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	position: absolute;
+	bottom:15px;
+	left: 0;
+}
+.home-window .social a {
+	cursor: none;
+}
+.home-window .social img {
+	width: 25px;
+	opacity: 0.6;
+	margin: 0px 15px;
+	filter: invert(100%);
+}
+.home-window .watermark {
+	position: absolute;
+	bottom: 10px;
+	left: 10px;
+	font-weight: 800;
+	font-size: 10px;
+	opacity: 0.3;
+}
