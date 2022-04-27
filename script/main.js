@@ -203,6 +203,7 @@ function gameFrame(mode, props) {
 
 				bar_top_height = map_range(Math.abs(noise.simplex2(bar_count / mode.top_noise_max, bar_count / mode.top_noise_min)), 0, 1, mode.height, ch - mode.height);
 				bar_gap = map_range(Math.abs(noise.simplex2(1, bar_count / mode.gap_noise_max)), 0, 1, mode.bar_gap_min, mode.bar_gap_max);
+				bar_gap = (bar_top_height + bar_gap >= ch) ? ch - bar_top_height - 10 : bar_gap;
 				const bar_width = Math.floor(random(8, 150));
 				const x_pos = lastBar.pos.x + (lastBar.width / 2) + (bar_width / 2);
 
