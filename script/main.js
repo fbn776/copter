@@ -203,7 +203,6 @@ function gameFrame(mode, props) {
 	const barVel = new Vector(mode.barVelocity, 0);
 	const seed = randWrldToggle.checked?Math.random():0;
 	noise.seed(seed);
-	lg.log(seed)
 
 	const player = new Player(50, cy, { barVelocity: barVel });
 	const bars = new Bars(player);
