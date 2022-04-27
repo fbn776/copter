@@ -25,7 +25,7 @@ class Obstacle {
 		this.h = h;
 		this.hw = w / 2;
 		this.hh = h / 2;
-		this.wOff = this.w/3.5;
+		this.wOff = this.w / 3.5;
 		this.dist = dist;
 	}
 	update(dt, vel) {
@@ -109,11 +109,11 @@ class Bars {
 								x: player.pos.x - player.halfSize,
 								y: player.pos.y - player.halfSize + 8,
 								w: player.size,
-								h: player.size-12,
+								h: player.size - 12,
 							};
-						
 
-						if (hasCollision(ply_box,obst_box)) {
+
+						if (hasCollision(ply_box, obst_box)) {
 							player.collidedWith = i;
 							player.onCollision()
 						};
@@ -253,7 +253,7 @@ class Player {
 			if (Date.now() - this.lastMoveUp > 1000) {
 				this.moveUpCounter = 0;
 			}
-			this.vel = new Vector(0, -150 - (this.moveUpCounter * 10));
+			this.vel = new Vector(0, -150 - (powerIncrToggle.checked?(this.moveUpCounter * 10):0));
 			this.lastMoveUp = Date.now();
 		}
 	}
@@ -277,15 +277,13 @@ class Player {
 		} else {
 			this.frameTime = 50;
 		}
-		if (Date.now() - this.lastMoveUp < 500) {
-			if (Math.random() < 0.4) {
-				for (let k = 0; k < random(2, 5); k++) {
-					this.smokes.add(
-						new Vector(0, random(20, 60, true)).add(this.props.barVelocity.add(new Vector(0, Math.floor(random(5, 15)) * (Math.random() > 0.5 ? -1 : 1)))),
-						random(8, 13),
-						random(80, 120)
-					);
-				}
+		if (smokeToggle.checked && (Math.random() < 0.4) && (Date.now() - this.lastMoveUp < 500)) {
+			for (let k = 0; k < random(2, 5); k++) {
+				this.smokes.add(
+					new Vector(0, random(20, 60, true)).add(this.props.barVelocity.add(new Vector(0, Math.floor(random(5, 15)) * (Math.random() > 0.5 ? -1 : 1)))),
+					random(8, 13),
+					random(80, 120)
+				);
 			}
 		}
 

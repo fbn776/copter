@@ -146,3 +146,17 @@ function newMsg(txt){
 		},0);
 	},200);
 }
+
+function closeWin(elm,trans = 200){
+	elm.style.opacity = 0;
+	setTimeout(()=>{
+		elm.style.display = "none";
+	},trans);
+}
+	
+function openWin(elm,disp="block") {
+	elm.style.display = disp;
+	setTimeout(()=>{
+		elm.style.opacity = 1;
+	},0);
+}

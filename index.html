@@ -10,14 +10,29 @@
 
 <body>
 	<lg></lg>
+	<div id="settings_menu" class="fixed-full settings-window">
+		<img src="ic/x.png" class="close" onclick="closeWin(settings_menu)">
+		<div class="center">
+			<div class="inputs">Sounds <input class="setts-check" id="soundToggle" checked="true" type="checkbox"></div>
+			<div class="inputs">Obstacles <input class="setts-check" id="obstToggle" checked="true" type="checkbox"></div>
+			<div class="inputs">Use Random Seeds <input class="setts-check" id="randWrldToggle" checked="true" type="checkbox"></div>
+			<div class="inputs">Exhaust Smoke <input class="setts-check" id="smokeToggle" checked="true" type="checkbox"></div>
+			<div class="inputs">More Thrust On Combo Taps<input class="setts-check" id="powerIncrToggle" checked="true" type="checkbox"></div>
+		
+			<div class="inputs">Clear Easy Score <button onclick="resetScore('easy')">Reset</button></div>
+			<div class="inputs">Clear Medium Score <button onclick="resetScore('medium')">Reset</button></div>
+			<div class="inputs">Clear Hard Score <button onclick="resetScore('hard')">Reset</button></div>
+			<div class="inputs">Reset All Score <button onclick="resetScore('all')">Reset</button></div>
+		</div>
+	</div>
 	<div class="fixed-full home-window">
 		<h1>Cave Copter</h1>
 		<div class="menu">
-			<a onclick="initGame(Game_modes.easy)">Easy - <label id="easyHS">0</label> </a>
-			<a onclick="initGame(Game_modes.medium)">Medium - <label id="mediumHS">0</label> </a>
-			<a onclick="initGame(Game_modes.hard)">Hard - <label id="hardHS">0</label> </a>
+			<a onclick="initGame(Game_modes.easy)">Easy <label id="easyHS">0</label> </a>
+			<a onclick="initGame(Game_modes.medium)">Medium <label id="mediumHS">0</label> </a>
+			<a onclick="initGame(Game_modes.hard)">Hard <label id="hardHS">0</label> </a>
+			<a onclick="openWin(settings_menu,'flex')">Settings</a>
 			<p>Best score - <label id="bestHS">0</label></p><br>
-			<p class="flex">Sound - <input id="soundToggle" checked="true" type="checkbox"></p>
 		</div>
 		<div class="social">
 			<a href="https://www.twitter.com/fbn776"><img src="ic/twitter.png"></a>
@@ -25,6 +40,7 @@
 			<a href="https://github.com/fbn776"><img src="ic/github.png"></a>
 		</div>
 		<div class="watermark">fbn776</div>
+		<div id="reset_score">Reset score</div>
 	</div>
 
 	<div class="fixed-full game-window">
@@ -39,6 +55,7 @@
 				<div class="HS-text flex">Score - <label id="pauseHS"> 0</label></div>
 				<div class="ic-cont flex">
 					<img src="ic/home.png" id="home_btn">
+					<img src="ic/restart.png" id="restart_btn">
 					<img src="ic/resume.png" id="resume_btn">
 				</div>
 			</div>
@@ -56,10 +73,14 @@
 	<script src="script/classes.js"></script>
 	<script src="script/main.js"></script>
 	<script>
-		soundToggle.checked = localStorage.getItem("enable-copter-sound") == "false"?false: true;
-		soundToggle.oninput = function (){
-			localStorage.setItem("enable-copter-sound",this.checked);
-		}
+		const settingsCheckBox = document.getElementsByClassName("setts-check");
+		for (let a of settingsCheckBox) {
+			const id = a.id;
+			a.checked = localStorage.getItem(id) == "false" ? false : true;
+			a.oninput = function() {
+				localStorage.setItem(this.id, this.checked);
+			}
+		};
 	</script>
 </body>
 
