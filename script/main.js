@@ -107,7 +107,6 @@ function initGame(mode) {
 	}, 0);
 	newMsg(mode.mode + " Mode Selected");
 	TimerSlide([
-		/*
 		() => {
 			newMsg("Starts in 3..")
 		},
@@ -119,7 +118,7 @@ function initGame(mode) {
 		},
 		() => {
 			newMsg("Go!");
-		},*/
+		},
 		() => {
 			msgWindow.style.display = "none";
 			gameFrame(mode, props);
@@ -127,6 +126,7 @@ function initGame(mode) {
 	], 500);
 	let paused = false;
 	pause_btn.onclick = function() {
+		sound.stop();
 		pauseMenu.style.display = "block";
 		setTimeout(() => {
 			pauseMenu.style.opacity = 1;
@@ -137,12 +137,15 @@ function initGame(mode) {
 	};
 
 	resume_btn.onclick = function() {
+		sound.play('engine');
+		
 		paused = false;
 		pauseMenu.style.display = "none";
 		pauseMenu.style.opacity = 0;
 		props.stop = false;
 	}
 	home_btn.onclick = function() {
+		sound.stop();
 		let cont = true;
 		if (paused) {
 			cont = confirm("Do you want to quit? Your scores will be lost, if you quit.")
@@ -162,6 +165,10 @@ function initGame(mode) {
 }
 
 function gameFrame(mode, props) {
+	
+	sound.volume(max_vol);
+	sound.play('engine');
+
 	const barVel = new Vector(mode.barVelocity, 0);
 	noise.seed(Math.random());
 

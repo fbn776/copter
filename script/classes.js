@@ -4,9 +4,19 @@ const Smoke_img = new Image();
 Smoke_img.src = "sprites/smoke.png";
 const Player_img = new Image();
 Player_img.src = "sprites/player.png";
+const default_vol = 0.2;
+const max_vol = 0.8;
 
-const sound = new Audio();
-sound.src = "sound/sound.mp3"
+const sound = new Howl({
+	src: ['sound/sound.mp3'],
+	sprite: {
+		engine: [0, 3050],
+		explode: [3050, 4000],
+	},
+	pool: 1,
+	loop: true,
+});
+sound.volume(default_vol);
 
 class Obstacle {
 	constructor(x, y, w, h, dist) {
@@ -33,7 +43,6 @@ class Obstacle {
 		ctx.closePath();
 	}
 }
-
 
 class Bar {
 	constructor(x, topH, gap, w, obst) {
@@ -66,7 +75,6 @@ class Bar {
 		ctx.closePath();
 	}
 }
-
 class Bars {
 	constructor(player) {
 		this.arr = [];
@@ -75,7 +83,7 @@ class Bars {
 	add(x, h, g, w, obst = null) {
 		this.arr.push(new Bar(x, h, g, w, obst))
 	}
-	update(dt,barVel) {
+	update(dt, barVel) {
 		const player = this.player;
 		for (let i = 0; i < this.arr.length; i++) {
 			const curr = this.arr[i];
@@ -124,19 +132,18 @@ class Bars {
 
 		if (player.hasCollision && player.collidedWith > 0) {
 			const curr = this.arr[player.collidedWith],
-				last = this.arr[player.collidedWith - 1] || {pos: {x:0,y:0},halfW: 0,bottomY:curr.bottomY,bottomHeight:curr.topHeight};
+				last = this.arr[player.collidedWith - 1] || { pos: { x: 0, y: 0 }, halfW: 0, bottomY: curr.bottomY, bottomHeight: curr.topHeight };
 			const width = (curr.pos.x - curr.halfW) - (last.pos.x + last.halfW);
 			ctx.beginPath();
 			ctx.rect(curr.pos.x - curr.halfW - width, 0, width, Math.min(curr.topHeight, last.topHeight));
-			ctx.rect(curr.pos.x - curr.halfW - width, Math.min(last.bottomY,curr.bottomY), width, ch - Math.min(last.bottomY, curr.bottomY));
+			ctx.rect(curr.pos.x - curr.halfW - width, Math.min(last.bottomY, curr.bottomY), width, ch - Math.min(last.bottomY, curr.bottomY));
 			ctx.fill();
 			ctx.stroke();
 			ctx.closePath();
-			
+
 		}
 	};
 }
-
 
 class Smoke {
 	constructor(x, y, size = 32, vel = new Vector(0, 0), life, scaleStart = 1, scaleFactor = 1) {
@@ -228,20 +235,14 @@ class Player {
 		this.img_index = 1;
 		this.lastChange = 0;
 		this.frameTime = 50;
-		
+
 		this.soundTime = 0;
 	}
 	moveUp() {
-		sound.volume = 1;
-		//sound.duration = 0;
-		if(sound.paused || (sound.duration - sound.currentTime) < 0.1) {
-			sound.currentTime = 1;
-			sound.volume = 1;
-			sound.play();
-		}
-		
-		
 		if (!this.hasCollision) {
+			if (sound.volume() == default_vol) {
+				sound.fade(default_vol, max_vol, 800);
+			}
 			this.moveUpCounter++;
 			if (Date.now() - this.lastMoveUp > 1000) {
 				this.moveUpCounter = 0;
@@ -251,29 +252,12 @@ class Player {
 		}
 	}
 	update(dt) {
-		lg.log(sound.duration + "<br>" + sound.currentTime)
 		this.dt = dt;
-		
-		const diff = Date.now() - this.lastMoveUp;
 
-		if(Date.now() - this.lastMoveUp < 1000){
-			sound.volume = round(Math.max(0,Math.min(map_range(diff,0,1000,1,0),1)),2);
-
-			//sound.pause();
-			//sound.currentTime = 0;
-			//lg.log("yep")
-		}else {
-			//lg.log("nope")
+		if (!this.hasCollision && sound.volume() == max_vol && (Date.now() - this.lastMoveUp > 800)) {
+			sound.fade(max_vol, default_vol, 500);
 		}
-		/*
-		const vol = round(Math.max(0,Math.min(map_range(diff,0,1000,1,0),1)),2);
-		//sound.volume = vol;
-		lg.log(vol)
-			
-		if (diff > 1000) {
-			this.soundTime = Date.now();
-		}*/
-		
+
 		this.vel = this.vel.add(this.acc.multScalar(dt));
 		this.pos = this.pos.add(this.vel.multScalar(dt));
 		this.smokes.x = this.pos.x;
@@ -329,6 +313,13 @@ class Player {
 		}
 		this.smokes.addN(10);
 		this.props.barVelocity.x = 0;
+		if (!this.hasCollision) {
+			sound.stop();
+			sound.volume(max_vol)
+			sound.play('explode');
+
+			sound.fade(max_vol, 0, 1000);
+		}
 		this.hasCollision = true;
 	}
 }
