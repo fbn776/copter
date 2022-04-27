@@ -238,20 +238,6 @@ lg {
 	opacity: 0.3;
 }
 
-#reset_score {
-	position: absolute;
-	bottom: 22px;
-	right: 15px;
-	font-weight: 800;
-	font-size: 12px;
-	opacity: 0.5;
-
-}
-
-#reset_score:active {
-	color: #FF5E5E;
-	user-select: none;
-}
 
 .settings-window {
 	z-index: 999;
@@ -297,5 +283,10 @@ lg {
 	color: #212121;
 	border: none;
 	padding: 4px;
-	font-size: 12px
+	font-size: 12px;
+	transition: background 0.2s , color 0.2s;
+}
+.settings-window .center .inputs button:active {
+	background: #AA0000;
+	color: white;
 }
