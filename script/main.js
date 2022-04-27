@@ -1,5 +1,5 @@
 const scores = {
-	easy: 2726,
+	easy: 0,
 	medium: 0,
 	hard: 0,
 	best: 0,
@@ -39,10 +39,13 @@ function resetScore(mode){
 			case 'hard':
 				scores.hard = 0;
 				break;
+			case 'best':
+				scores["best"] = Math.max(scores.easy,scores.medium,scores.hard)
+				break;
 			case 'all':
 				scores.easy = scores.medium = scores.hard = scores.best = 0;
 				break;
-		}
+		};
 		setScores();
 	}
 }
