@@ -28,7 +28,7 @@ checkScores();
 
 //Reset score;
 function resetScore(mode){
-	const confo = confirm("Do you want to reset "+(mode=='all'?mode+" your":"your "+mode)+" scores?");
+	const confo = confirm("Do you want to reset "+(mode=='all'?mode+" your":"your "+mode)+" score?");
 	if(confo){
 		switch(mode) {
 			case 'easy':

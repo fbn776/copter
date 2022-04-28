@@ -322,7 +322,10 @@ class Player {
 			sound.stop();
 			sound.volume(1)
 			sound.play('explode');
-			sound.fade(1, 0, 1000);
+			setTimeout(()=>{
+				sound.stop();
+			},800)
+			//sound.fade(1, 0, 1000);
 		}
 		this.hasCollision = true;
 	}
