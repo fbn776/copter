@@ -219,8 +219,6 @@ class Smokes {
 		}
 	}
 }
-
-
 class Player {
 	constructor(x, y, props) {
 		this.props = props;
@@ -296,9 +294,6 @@ class Player {
 		ctx.drawImage(Player_img, 64 * (this.img_index - 1), 0, 64, 64,
 			-this.halfSize, -this.halfSize, this.size, this.size)
 
-		/*Bounding box;
-		ctx.rect(-this.halfSize, -this.halfSize, this.size, this.size);
-		ctx.stroke();*/
 		ctx.restore();
 
 		if (Date.now() - this.lastChange > this.frameTime) {
@@ -325,7 +320,6 @@ class Player {
 			setTimeout(()=>{
 				sound.stop();
 			},800)
-			//sound.fade(1, 0, 1000);
 		}
 		this.hasCollision = true;
 	}

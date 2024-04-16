@@ -102,7 +102,6 @@ lg {
 
 .game-window .pause-menu {
 	position: fixed;
-	;
 	top: 0;
 	left: 0;
 	bottom: 0;
@@ -153,7 +152,6 @@ lg {
 	width: 100%;
 	height: 100%;
 	transition: opacity 0.2s;
-	/*display: none;*/
 }
 
 .home-window h1 {
@@ -172,7 +170,6 @@ lg {
 
 .home-window .menu a {
 	display: block;
-	cursor: none;
 	text-decoration: none;
 	font-weight: 800;
 	font-size: 16px;
@@ -182,6 +179,7 @@ lg {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	cursor: pointer;
 }
 
 .home-window .menu a label {
@@ -218,10 +216,6 @@ lg {
 	left: 0;
 }
 
-.home-window .social a {
-	cursor: none;
-}
-
 .home-window .social img {
 	width: 25px;
 	opacity: 0.6;
@@ -256,8 +250,15 @@ lg {
 	top: 20px;
 	right: 20px;
 	width: 40px;
-	filter: invert(100%)
+	filter: invert(100%);
+	cursor: pointer;
+	transition: transform 0.2s;
 }
+
+.settings-window .close {
+	transform: scale(1.1);
+}
+
 .settings-window .center {
 	width: 90%;
 	text-align: center;
@@ -289,4 +290,13 @@ lg {
 .settings-window .center .inputs button:active {
 	background: #AA0000;
 	color: white;
+}
+
+.ic-cont img {
+	transition: transform 0.2s;
+	cursor: pointer;
+}
+
+.ic-cont img:hover {
+	transform: scale(1.1);
 }

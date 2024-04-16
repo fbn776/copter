@@ -150,6 +150,7 @@ function initGame(mode, reqDelay = true) {
 			gameFrame(mode, props);
 		}
 	], 500);
+
 	let paused = false;
 	pause_btn.onclick = function() {
 		sound.stop();
@@ -214,6 +215,11 @@ function gameFrame(mode, props) {
 
 	canvas.onclick = function() {
 		player.moveUp();
+	}
+
+	window.onkeydown = (e) => {
+		if(e.code === "Space" || e.code === "ArrowUp")
+			player.moveUp();
 	}
 
 
